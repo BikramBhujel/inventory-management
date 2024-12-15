@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Inventory Management</h1>
+        <p>Manage your inventory records seamlessly.</p>
+    </header>
+
+    <main>
+        <section id="login-section">
+            <h2>Login</h2>
+            <form class="login-form" onsubmit="login(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
+
+        <section id="dashboard-section" style="display: none;">
+            <h2>Inventory Dashboard</h2>
+            <form class="add-form" onsubmit="addRecord(event)">
+                <h3>Add Inventory Record</h3>
+                <input type="text" id="id_number" placeholder="ID Number" required>
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="text" id="program" placeholder="Program" required>
+                <input type="text" id="country" placeholder="Country" required>
+                <input type="text" id="equipment" placeholder="Equipment" required>
+                <input type="text" id="model" placeholder="Model" required>
+                <input type="date" id="assignment_date" required>
+                <input type="date" id="replacement_due" required>
+                <button type="submit">Add Record</button>
+            </form>
+
+            <div class="table-container">
+                <table id="inventory-table">
+                    <thead>
+                    
