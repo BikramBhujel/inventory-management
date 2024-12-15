@@ -4,7 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Reset */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #0078d7;
+            color: white;
+            padding: 1rem 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: #0078d7;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #0078d7;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #0078d7;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .login-form, .add-form {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form input, .add-form input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .login-form button, .add-form button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover, .add-form button:hover {
+            background-color: #005bb5;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -42,4 +152,90 @@
             <div class="table-container">
                 <table id="inventory-table">
                     <thead>
-                    
+                        <tr>
+                            <th>ID Number</th>
+                            <th>Name</th>
+                            <th>Program</th>
+                            <th>Country</th>
+                            <th>Equipment</th>
+                            <th>Model</th>
+                            <th>Assignment Date</th>
+                            <th>Replacement Due</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Bikram BHUJEL. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const users = [
+            { username: 'admin', password: 'password123' }
+        ];
+
+        const records = [];
+
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+            } else {
+                alert('Invalid login credentials!');
+            }
+        }
+
+        function addRecord(event) {
+            event.preventDefault();
+            const record = {
+                id: document.getElementById('id_number').value,
+                name: document.getElementById('name').value,
+                program: document.getElementById('program').value,
+                country: document.getElementById('country').value,
+                equipment: document.getElementById('equipment').value,
+                model: document.getElementById('model').value,
+                assignmentDate: document.getElementById('assignment_date').value,
+                replacementDue: document.getElementById('replacement_due').value,
+            };
+            records.push(record);
+            updateTable();
+        }
+
+        function updateTable() {
+            const tableBody = document.querySelector('#inventory-table tbody');
+            tableBody.innerHTML = '';
+            records.forEach((record, index) => {
+                const row = `<tr>
+                    <td>${record.id}</td>
+                    <td>${record.name}</td>
+                    <td>${record.program}</td>
+                    <td>${record.country}</td>
+                    <td>${record.equipment}</td>
+                    <td>${record.model}</td>
+                    <td>${record.assignmentDate}</td>
+                    <td>${record.replacementDue}</td>
+                    <td><button onclick="deleteRecord(${index})">Delete</button></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function deleteRecord(index) {
+            records.splice(index, 1);
+            updateTable();
+        }
+    </script>
+</body>
+</html>
